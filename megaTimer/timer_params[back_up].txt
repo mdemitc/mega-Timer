@@ -1,0 +1,21 @@
+window.addEventListener('load', init, false);
+
+function init() {
+	//var timer_1 = document.getElementById('timer_1');
+	startTimer.addEventListener('click', start, false);
+	stopTimer.addEventListener('click', stop, false);
+	timerObject = new Timer('Work it bitch!');
+}
+var timerObject ;
+function start() {
+	timer = setInterval(function(){
+		var now = new Date()
+		var elapsed = now.getSeconds() - timerObject.time.getSeconds();
+		result.innerHTML = elapsed;
+	 }, 1000)
+	  
+}
+
+function stop() {
+	clearInterval(timer);
+}

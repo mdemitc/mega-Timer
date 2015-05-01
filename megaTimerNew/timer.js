@@ -1,9 +1,12 @@
 function Timer(title) {
 	this.state = 'paused';
-	this.time = new Date();
+	this.time = {
+		seconds: 0,
+		minute: 0,
+		hours: 0
+	};
 	this.title = title;
-	console.log(this.time);
-	console.log(this.time.getTime());
+	this.checkPause = true;
 	//States
 	this.states = {
 		active: 'active',
@@ -13,16 +16,28 @@ function Timer(title) {
 }
 
 Timer.prototype.start = function() {
-	_switchState(states.active);
-	this.time = new Date();
+	this._switchState(this.states.active);
+	
+	if (this.time.seconds < 59)
+		this.time.seconds++; 
+	else if (this.time.minute < 59){
+		this.time.minute++;
+		this.time.seconds = 0;
+	} else {
+		this.time.hours++;
+		this.time.minute = 0;
+		this.time.seconds = 0;
+	}
+	
+	return this.time;
 }
 
 Timer.prototype.pause = function() {
-	_switchState(states.paused);
+	this._switchState(this.states.paused);
 }
 
 Timer.prototype.stop = function() {
-	_switchState(states.finished);
+	this._switchState(this.states.finished);
 }
 
 Timer.prototype._switchState = function(newState) {
