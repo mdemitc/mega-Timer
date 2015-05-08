@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>QUnit Example</title>
+
+    <script src="timer.js"></script>
+    <script src="timer_param.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="todo.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+</head>
+<body>
+
+    <span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span>
+
+    <input id="pauseButton" type="button" value="Pause">
+    <input id="resumeButton" type="button" value="Resume">
+
+<p>==================================</p>
+
+    <div ng-app="todoApp">
+    <h2>Todo</h2>
+    <div ng-controller="TodoListController">
+        <form ng-submit="addTodo()">
+            <input type="text" ng-model="todoText"  size="30" placeholder="add new todo here">
+            <input class="btn-primary" type="submit" value="add">
+        </form>
+        <span>{{remaining()}} of {{todos.length}} remaining</span>
+
+        <table class="table table-hover" style=width:80% style=margin:0 auto>
+            <tr>
+                <th>Name</th>
+                <th>Time</th>
+                <th>Actions</th>
+            </tr>
+            <tr ng-repeat="todo in todos">
+                <td><span class="done-{{todo.done}}">{{todo.title}}</span></td>
+                <td><span class="done-{{todo.done}}">{{todo.timeHMS}}</span></td>
+                <td><input type="button"  ng-click = "toggle(todo)" class='start btn btn-default' value="{{todo.timer?'pause':'start'}}"/>
+                    <input type="button"  ng-click = "archive(todo)" class='stop btn btn-default' value="stop"/></td>
+            </tr>
+        </table>
+    </div>
+    </div>
+
+</body>
+</html>
